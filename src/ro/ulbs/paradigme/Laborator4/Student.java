@@ -13,7 +13,7 @@ public class Student {
         this.grupa = grupa;
         Random rand = new Random();
         for (int i = 0; i < 5; i++) {
-            this.note[i] = rand.nextInt(7) + 4; // Note între 4 și 10
+            this.note[i] = rand.nextInt(7) + 4;
         }
     }
 
