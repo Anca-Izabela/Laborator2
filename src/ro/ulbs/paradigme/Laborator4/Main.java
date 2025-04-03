@@ -1,33 +1,45 @@
 package ro.ulbs.paradigme.Laborator4;
+import java.io.*;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<Student> studenti = Arrays.asList(
-                new Student("Popescu", "Ion", "A1"),
-                new Student("Ionescu", "Maria", "A2"),
-                new Student("Georgescu", "Ana", "A1"),
-                new Student("Dumitrescu", "Vlad", "A3"),
-                new Student("Radu", "Elena", "A2")
-        );
+        String fileName = "src/input.txt";
 
-        // b1) Sortare alfabetică pe grupe
-        studenti.sort(Comparator.comparing((Student s) -> s.grupa).thenComparing(s -> s.nume));
-        System.out.println("\nSortare alfabetică pe grupe:");
-        studenti.forEach(System.out::println);
+        List<Student> studenti = new ArrayList<>();
+        Map<Student, Integer> studentCount = new HashMap<>();
 
-        // b2) Sortare descrescătoare a mediilor pentru integraliști
-        List<Student> integralisti = studenti.stream().filter(Student::esteIntegralist)
-                .sorted(Comparator.comparingDouble(Student::getMedie).reversed())
-                .toList();
-        System.out.println("\nIntegraliști sortați descrescător după medie:");
-        integralisti.forEach(System.out::println);
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(" ");
+                String nume = parts[0];
+                String prenume = parts[1];
+                String grupa = parts[2];
 
-        // b3) Sortare crescătoare a numărului de restanțe pentru restanțieri
-        List<Student> restantieri = studenti.stream().filter(s -> !s.esteIntegralist())
-                .sorted(Comparator.comparingLong(Student::getRestante))
-                .toList();
-        System.out.println("\nRestanțieri sortați crescător după numărul de restanțe:");
-        restantieri.forEach(System.out::println);
+                int[] note = Arrays.stream(Arrays.copyOfRange(parts, 3, parts.length))
+                        .mapToInt(Integer::parseInt)
+                        .toArray();
+
+                Student student = new Student(nume, prenume, grupa, note);
+                studenti.add(student);
+                studentCount.put(student, studentCount.getOrDefault(student, 0) + 1);
+            }
+        } catch (IOException e) {
+            System.err.println("Eroare la citirea fișierului: " + e.getMessage());
+        }
+
+
+        System.out.println("\nLista studenților și numărul de apariții:");
+        studentCount.forEach((s, count) -> System.out.println(s + ", Apare de " + count + " ori"));
+
+
+        System.out.println("\nLista completă a studenților:");
+        for (Student student : studenti) {
+            System.out.println(student);
+        }
     }
 }
+
+
+
