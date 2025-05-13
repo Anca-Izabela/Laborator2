@@ -5,17 +5,21 @@ public class Main {
 
         NewIntCalculator intCalc = new NewIntCalculator();
         intCalc.init(10);
-        int intResult = (Integer) intCalc.add(5).subtract(3).multiply(2).result();
-        System.out.println("Integer result: " + intResult);
-
-        intCalc.clear();
+        intCalc.add(5).subtract(3).multiply(2);
+        System.out.println("Rezultatul pentru NewIntCalculator: " + intCalc.getState());
 
 
         DoubleCalculator doubleCalc = new DoubleCalculator();
-        doubleCalc.init(10.0);
-        double doubleResult = (Double) doubleCalc.add(5).subtract(3.3).multiply(2.2).result();
-        System.out.println("Double result: " + doubleResult);
+        doubleCalc.init(5.5);
+        doubleCalc.add(2.2).subtract(1.1).multiply(3);
+        System.out.println("Rezultatul pentru DoubleCalculator: " + doubleCalc.getState());
 
-        doubleCalc.clear();
+
+        try {
+            NewIntCalculator invalidCalc = new NewIntCalculator();
+            invalidCalc.init("test");  // va arunca IllegalArgumentException
+        } catch (IllegalArgumentException e) {
+            System.out.println("Eroare prinsa: " + e.getMessage());
+        }
     }
 }
