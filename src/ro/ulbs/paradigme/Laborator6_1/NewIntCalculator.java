@@ -25,4 +25,11 @@ public class NewIntCalculator extends ACalculator {
         state = (Integer) state * value;
         return this;
     }
+    public NewIntCalculator divide(int value) {
+        if (value == 0) {
+            throw new ArithmeticException("Division by zero is not allowed");
+        }
+        state = (Integer) state / value;
+        return this;
+    }
 }

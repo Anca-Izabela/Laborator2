@@ -57,4 +57,19 @@ public class NewIntCalculatorTest {
 
         assertEquals(14, calc.getState());
     }
+    @Test
+    public void testMultiplyWithZero() {
+        NewIntCalculator calc = new NewIntCalculator();
+        calc.init(15);
+        calc.multiply(0);
+        assertEquals(0, calc.getState());
+    }
+    @Test
+    public void testDivideByZeroThrowsException_NewIntCalculator() {
+
+        NewIntCalculator calc = new NewIntCalculator();
+        calc.init(10);
+
+        assertThrows(ArithmeticException.class, () -> calc.divide(0));
+    }
 }

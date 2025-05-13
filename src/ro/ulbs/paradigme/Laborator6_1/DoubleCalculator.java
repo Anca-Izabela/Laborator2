@@ -25,4 +25,11 @@ public class DoubleCalculator extends ACalculator {
         state = (Double) state * value;
         return this;
     }
+    public DoubleCalculator divide(double value) {
+        if (value == 0.0) {
+            throw new ArithmeticException("Division by zero is not allowed");
+        }
+        state = (Double) state / value;
+        return this;
+    }
 }

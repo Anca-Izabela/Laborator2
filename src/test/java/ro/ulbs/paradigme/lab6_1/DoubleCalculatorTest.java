@@ -65,4 +65,19 @@ public class DoubleCalculatorTest {
 
         assertEquals(17.5, (Double) calc.getState(), 0.00001);
     }
+    @Test
+    public void testMultiplyWithZero() {
+        DoubleCalculator calc = new DoubleCalculator();
+        calc.init(12.5);
+        calc.multiply(0.0);
+        assertEquals(0.0, (Double) calc.getState(), 0.0001);
+    }
+    @Test
+    public void testDivideByZeroThrowsException_DoubleCalculator() {
+
+        DoubleCalculator calc = new DoubleCalculator();
+        calc.init(10.0);
+
+        assertThrows(ArithmeticException.class, () -> calc.divide(0.0));
+    }
 }
