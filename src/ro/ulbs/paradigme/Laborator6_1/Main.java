@@ -17,7 +17,7 @@ public class Main {
 
         try {
             NewIntCalculator invalidCalc = new NewIntCalculator();
-            invalidCalc.init("test");  // va arunca IllegalArgumentException
+            invalidCalc.init("test");
         } catch (IllegalArgumentException e) {
             System.out.println("Eroare prinsa: " + e.getMessage());
         }
